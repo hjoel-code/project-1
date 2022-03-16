@@ -5,10 +5,16 @@
 {% endblock %}
 
 {% block main %}
-<div class="p-5 mb-4 bg-light rounded-3 border">
-  <div class="container-fluid py-5">
-    <h1 class="display-5 fw-bold">Hello, world!</h1>
-    <p>This is a simple starter template for a Flask Application</p>
+<div class="rounded-3 border property-main-bg">
+  <div class="p-5 container-fluid d-grid align-items-between dark-bg">
+    <h1 class="display-5 fw-bold text-white">Project 1 Properties</h1>
+    <p class="text-white" >View our finest collection of properties or add your property for the best opportunities.</p>
+
+
+    <div class="btn-group my-5 w-50">
+      <a href="{{ url_for('properties') }}" class="btn btn-warning btn-lg">Properties</a>
+      <a href="{{ url_for('createProperty') }}" class="btn btn-danger btn-lg">New Property</a>
+    </div>
   </div>
 </div>
 {% endblock %}

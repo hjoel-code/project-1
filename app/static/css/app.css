@@ -58,3 +58,13 @@ body {
     font-size: 16px;
     font-weight: 500;
 }
+
+
+.property-main-bg {
+ background-image: url('https://wallpaperaccess.com/full/1899348.jpg');
+ background-size: cover;
+}
+
+.dark-bg {
+  background: rgba(0, 0, 0, 0.575);
+}

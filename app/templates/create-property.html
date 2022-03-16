@@ -7,6 +7,7 @@
 <div class="p-5 mb-4 bg-light rounded-3 border">
   <div class="container-fluid py-5">
     <h1 class="display-5 fw-bold">Add New Property</h1>
+    {% include 'flash.html' %}
     <div class="row">
       <div class="col-md-7 col-sm-12">
         <form action="{{ url_for('createProperty') }}" method="post" enctype="multipart/form-data">
@@ -102,14 +103,6 @@
 
   </div>
 </div>
-
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
 
 {% endblock %} {% block js %}
 <script
