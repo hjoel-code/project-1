@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/styles.css')}}"
+/>
+{% endblock %} {% block main %}
+<div class="p-5 mb-4 bg-light rounded-3 border">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">Add New Property</h1>
+    <div class="row">
+      <div class="col-md-7 col-sm-12">
+        <form action="{{ url_for('createProperty') }}" method="post" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+          <div class="my-3">
+            <div class="d-block">
+              <small class="text-muted"><b>{{ form.title.label }}</b></small>
+            </div>
+            {{ form.title(class_='form-control my-2') }}
+          </div>
+
+          <div class="my-3">
+            <div class="d-block">
+              <small class="text-muted"
+                ><b>{{ form.description.label }}</b></small
+              >
+            </div>
+            {{ form.description(class_='form-control my-2') }}
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="my-3">
+                <div class="d-block">
+                  <small class="text-muted"
+                    ><b>{{ form.rooms.label }}</b></small
+                  >
+                </div>
+                {{ form.rooms(class_='form-control my-2') }}
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="my-3">
+                <div class="d-block">
+                  <small class="text-muted"
+                    ><b>{{ form.baths.label }}</b></small
+                  >
+                </div>
+                {{ form.baths(class_='form-control my-2') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="my-3">
+                <div class="d-block">
+                  <small class="text-muted"
+                    ><b>{{ form.price.label }}</b></small
+                  >
+                </div>
+                {{ form.price(class_='form-control my-2') }}
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="my-3">
+                <div class="d-block">
+                  <small class="text-muted"
+                    ><b>{{ form.propertyType.label }}</b></small
+                  >
+                </div>
+                {{ form.propertyType(class_='form-control my-2') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="my-3">
+                <div class="d-block">
+                  <small class="text-muted"
+                    ><b>{{ form.location.label }}</b></small
+                  >
+                </div>
+                {{ form.location(class_='form-control my-2') }}
+              </div>
+            </div>
+          </div>
+          
+          <div class="my-3">
+            <div class="d-block">
+              <small class="text-muted"
+                ><b>{{ form.propertyImage.label }}</b></small
+              >
+            </div>
+            {{ form.propertyImage(class_='form-control my-2') }}
+
+            <button type="submit" class="btn btn-info my-5">Add Property</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+{% endblock %} {% block js %}
+<script
+  src="{{ url_for('static', filename='js/app.min.js') }}"
+  charset="utf-8"
+></script>
+{% endblock %}

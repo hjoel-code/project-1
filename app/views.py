@@ -5,8 +5,18 @@ Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file creates your application.
 """
 
-from app import app
-from flask import render_template, request, redirect, url_for
+import os
+from tokenize import String
+from app import app, db
+from flask import render_template, request, redirect, send_from_directory, url_for, flash
+
+from app.foms import AddPropertyForm
+from app.models import Property
+import locale
+from decimal import Decimal
+
+
+from werkzeug.utils import secure_filename
 
 
 ###
@@ -23,6 +33,89 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+
+
+def saveImage(files, key):
+    try :
+        image = files[key]
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return filename
+        
+    except Exception as e : 
+        print(e)
+        return None
+
+
+@app.route('/properties/create', methods=['GET', 'POST'])
+def createProperty():
+    data = request.form.copy()
+    data.update(request.files)
+    
+    form = AddPropertyForm(data)
+    
+    if (request.method == 'POST'):
+        if (form.validate_on_submit()):
+            filename = saveImage(request.files, form.propertyImage.name)
+            print(filename)
+            property = Property(
+                form.title.data,
+                form.rooms.data,
+                form.baths.data,
+                form.location.data,
+                form.price.data,
+                form.propertyType.data,
+                form.description.data,
+                filename
+            )
+            
+            db.session.add(property)
+            db.session.commit()
+            
+            flash('New Property Registered', 'success')
+            return redirect(url_for('properties'))
+        
+        flash('Something went wrong', 'error')
+    return render_template('create-property.html', form=form)
+
+
+
+def formatCurrency(amt: String):
+    locale.setlocale( locale.LC_ALL, 'en_US' )
+    value = Decimal(amt)
+    return locale.currency(value, grouping=True)
+
+
+@app.route('/properties')
+def properties():
+    properties = Property.query.all()
+    return render_template('properties.html', properties = properties, formatCurrency = formatCurrency)
+
+
+@app.route('/property/<propertyid>')
+def property(propertyid):
+    property = Property.query.filter_by(id=propertyid).first()
+    return render_template('property.html', property = property, formatCurrency = formatCurrency)
+
+
+def get_uploaded_image():
+    rootdir = os.getcwd()
+    
+    images = []
+    
+    for subdir, dirs, files in os.walk(rootdir + app.config['UPLOAD_FOLDER']):
+        for file in files:
+            if (file.endswith(('png', 'jpg', 'jpeg'))):
+                images.append(file)
+                
+    return images
+
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    return send_from_directory(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']), filename)
+
+
 
 
 ###

@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{url_for('static', filename='css/styles.css')}}"
+/>
+{% endblock %} {% block main %}
+<div class="container-fluid py-5">
+  <h2 class="display-5 fw-bold">Properties</h2>
+
+  <div class="row my-5">
+    {% for property in properties %}
+
+    <div class="col-md-4 col-sm-6">
+      <div class="card property my-2">
+        <div class="card-image">
+          {% if property.image %}
+          <img
+            class="w-100"
+            src="/uploads/{{ property.image }}"
+            alt=""
+          />
+          {% else %}
+          <img
+            class="w-100"
+            src="{{ url_for('static', filename='assets/no-image.png') }}"
+            alt=""
+          />
+          {% endif %}
+        </div>
+        <div class="card-body my-3">
+          <b class="vehicle-title">{{ property.title }}</b> <br />
+          <span
+            ><i class="feather-10" data-feather="map-pin"></i></span
+          ><small class="text-muted">{{ property.location }}</small> <br />
+          <span class="badge">
+            <small>{{ formatCurrency(property.price) }}</small></span
+          >
+        </div>
+        <a href="/property/{{ property.id }}" class="btn btn-info w-100"
+          >View Property</a
+        >
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} {% block js %}
+<script
+  src="{{ url_for('static', filename='js/app.min.js') }}"
+  charset="utf-8"
+></script>
+{% endblock %}

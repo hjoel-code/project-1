@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid py-5">
+  <h1 class="display-5 fw-bold">Property</h1>
+  
+  <div class="property-view card my-5">
+    <div class="image-container">
+      {% if property.image %}
+          <img
+            class="w-100"
+            src="/uploads/{{ property.image }}"
+            alt=""
+          />
+          {% else %}
+          <img
+            class="w-100"
+            src="{{ url_for('static', filename='assets/no-image.png') }}"
+            alt=""
+          />
+          {% endif %}
+    </div>
+    <div class="content-container p-4">
+      <h5>{{ property.title }}</h5>
+      <div class="badge mx-3">
+        {{ formatCurrency(property.price) }}
+      </div>
+      <div class="badge bg-warning">
+        {{ property.propertyType }}
+      </div>
+
+      <div class="property-description my-3">
+        {{ property.description }}
+      </div>
+
+      <div class="row w-50">
+        <div class="col-6">{{ property.rooms }} Bedrooms</div>
+        <div class="col-6">{{ property.baths }} Bathrooms</div>
+
+        <span><i class="feather-10" data-feather="map-pin"></i>{{ property.location }}</span>
+      </div>
+
+
+      <a href="#" class="btn btn-warning"><span><i class="feather-10" data-feather="send"></i>Email Realtor</span></a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/app.min.js') }}" charset="utf-8"></script>
+{% endblock %}

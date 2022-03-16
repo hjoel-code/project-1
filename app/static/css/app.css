@@ -1,3 +1,60 @@
 body {
-    padding-top: 5rem;
+  padding-top: 5rem;
+  background: whitesmoke;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand span {
+  margin: 0 2px;
+}
+
+.feather-10 {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.badge {
+  padding: 5px;
+  background: rgb(22, 172, 122);
+  font-weight: 500;
+  padding: 5px 10px;
+  margin-top: 10px;
+  border-radius: 50px;
+}
+
+.card {
+  box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.49);
+  -webkit-box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.49);
+}
+
+.property-view {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    align-items: center;
+}
+
+.content-container .btn {
+    border-radius: 15px;
+    margin-top: 25px;
+}
+
+
+
+.property.card .btn {
+    border-radius: 0;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 10px 0;
+}
+
+.vehicle-title {
+    font-size: 16px;
+    font-weight: 500;
 }
