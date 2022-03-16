@@ -81,9 +81,7 @@ def createProperty():
 
 
 def formatCurrency(amt: String):
-    locale.setlocale( locale.LC_ALL, 'en_US' )
-    value = Decimal(amt)
-    return locale.currency(value, grouping=True)
+    return "${:,.2f}".format(float(amt))
 
 
 @app.route('/properties')
