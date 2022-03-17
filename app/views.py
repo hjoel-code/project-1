@@ -57,7 +57,6 @@ def createProperty():
     if (request.method == 'POST'):
         if (form.validate_on_submit()):
             filename = saveImage(request.files, form.propertyImage.name)
-            print(filename)
             property = Property(
                 form.title.data,
                 form.rooms.data,

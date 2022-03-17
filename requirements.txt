@@ -11,4 +11,3 @@ Flask-WTF==1.0.0
 Flask-SQLAlchemy
 Flask-Migrate
 psycopg2
-money
