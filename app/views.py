@@ -12,8 +12,6 @@ from flask import render_template, request, redirect, send_from_directory, url_f
 
 from app.foms import AddPropertyForm
 from app.models import Property
-import locale
-from decimal import Decimal
 
 
 from werkzeug.utils import secure_filename
@@ -51,7 +49,6 @@ def saveImage(files, key):
 def createProperty():
     data = request.form.copy()
     data.update(request.files)
-    
     form = AddPropertyForm(data)
     
     if (request.method == 'POST'):
